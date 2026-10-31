@@ -1,5 +1,6 @@
 import streamlit as st
-from backend_with_database import chatbot, retrieve_all_threads
+# from backend_with_database import chatbot, retrieve_all_threads
+from backend_with_tool import chatbot, retrieve_all_threads
 from langchain_core.messages import HumanMessage
 import uuid
 import sqlite3
@@ -85,7 +86,13 @@ if 'chat_titles' not in st.session_state:
 
 add_threads(st.session_state['thread_id'])
 
-CONFIG = {'configurable': {'thread_id': st.session_state['thread_id']}}
+CONFIG = {
+        "configurable": {"thread_id": st.session_state["thread_id"]},
+        "metadata": {
+            "thread_id": st.session_state["thread_id"]
+        },
+        "run_name": "chat_turn",
+    }
 
 st.sidebar.title("Chatbot")
 
